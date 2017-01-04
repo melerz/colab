@@ -20,7 +20,7 @@ class User(db.Model):
     def __repr__(self):
         return self.userName
 
-    def __init__(self, user_name, job, team, picture, works_on, country, name, password, location):
+    def __init__(self, user_name, job, picture=None, works_on=None, country=None, name=None, password=None, location=None,team=None):
         self.user_name = user_name
         self.job = job
         self.team = team
