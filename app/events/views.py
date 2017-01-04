@@ -36,8 +36,9 @@ class Events(Resource):
     def post(self):
         pass
 
-    def delete(self):
-        pass
+    def delete(self,event_id):
+        event = Event.query.get(event_id)
+        db.session.delete(event)
 
 
 resource_fields = {
@@ -63,8 +64,7 @@ class EventsType(Resource):
         return {"result": "success"}, 201
 
     def delete(self, type_id):
-        event = EventType.query.filter(EventType.id == type_id).first()
-        db.session.delete(event)
+       pass
 
 
 api.add_resource(Events, '/', '/<int:event_id>')
