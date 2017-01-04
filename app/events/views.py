@@ -34,9 +34,15 @@ class Events(Resource):
         return events
 
     def post(self):
-        pass
+        data = request.get_json()
+        new_event = Event(data['description'], data['coordinates'], data['radius'], data['event_type'],
+                          data['created_by'], data['created_date'], data['urgency'])
+        db.session.add(new_event)
+        db.session.commit()
+        return {"result": "success"}, 201
 
-    def delete(self,event_id):
+
+    def delete(self, event_id):
         event = Event.query.get(event_id)
         db.session.delete(event)
 
@@ -45,6 +51,35 @@ resource_fields = {
     'id': fields.String,
     'name': fields.String
 }
+
+
+user_json = {
+    'id': fields.String,
+    'user_name': fields.String,
+    'job': fields.String,
+    'picture': fields.String,
+    'works_on': fields.String,
+    'country:': fields.String,
+    'name': fields.String,
+    'password': fields.String,
+    'location': fields.Integer,
+    'team': fields.String
+
+}
+
+
+class EventsTypesRelationship(Resource):
+    @marshal_with(event_fields)
+    def get_all_events_by_type(self, type_id):
+        all_events = EventType.get(type_id)
+        return all_events.events.all()
+
+
+class EventsUsersRelationship(Resource):
+    @marshal_with(user_json)
+    def get_all_users_by_event(self, event_id):
+        all_users = Event.get(event_id)
+        return all_users.users.all()
 
 
 class EventsType(Resource):
@@ -64,8 +99,11 @@ class EventsType(Resource):
         return {"result": "success"}, 201
 
     def delete(self, type_id):
-       pass
+        event = EventType.query.filter(EventType.id == type_id).first()
+        db.session.delete(event)
 
 
 api.add_resource(Events, '/', '/<int:event_id>')
+api.add_resource(EventsUsersRelationship, '/<int:event_id>')
 api.add_resource(EventsType, '/type', '/type/<int:type_id>')
+api.add_resource(EventsTypesRelationship, '/type/<int:type_id>')

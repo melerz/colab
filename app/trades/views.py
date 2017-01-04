@@ -28,10 +28,53 @@ class Trades(Resource):
         return events
 
     def post(self):
-        pass
+        data = request.get_json()
+        new_trade = Trade(data['description'], data['trade_type'], data['category'], data['created_by'])
+        db.session.add(new_trade)
+        db.session.commit()
+        return {"result": "success"}, 201
 
-    def delete(self, type_id):
-        pass
+    def delete(self, trade_id):
+        my_trade = Trade.query.filter(Trade.id == trade_id).first()
+        my_trade.is_completed = 1
+        db.session.add(my_trade)
+        db.session.commit()
+
+
+class TradeTypeRelationshipView(Resource):
+    @marshal_with(trade_json)
+    def get_all_trades_by_type(self, type_id):
+        all_trades = TradeType.get(type_id)
+        return all_trades.trades.all()
+
+
+class TradeCategoryRelationshipView(Resource):
+    @marshal_with(trade_json)
+    def get_all_trades_by_category(self, cat_type_id):
+        all_trades = Category.get(cat_type_id)
+        return all_trades.trades.all()
+
+
+user_json = {
+    'id': fields.String,
+    'user_name': fields.String,
+    'job': fields.String,
+    'picture': fields.String,
+    'works_on': fields.String,
+    'country:': fields.String,
+    'name': fields.String,
+    'password': fields.String,
+    'location': fields.Integer,
+    'team': fields.String
+
+}
+
+
+class UserCategoryRelationshipView(Resource):
+    @marshal_with(user_json)
+    def get_all_users_by_category(self, cat_id):
+        all_users = Category.get(cat_id)
+        return all_users.users.all()
 
 
 trade_type_json = {
@@ -80,4 +123,7 @@ class CategoryView(Resource):
 
 api.add_resource(Trades, '/', '/<int:trade_id>')
 api.add_resource(TradeTypeView, '/', '/<int:trade_type_id>')
+api.add_resource(TradeTypeRelationshipView, '/<int:type_id>')
 api.add_resource(CategoryView, '/category', '/<int:cat_id>')
+api.add_resource(TradeCategoryRelationshipView, '/<int:cat_type_id>')
+api.add_resource(UserCategoryRelationshipView, '/<int:cat_id>')
