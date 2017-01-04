@@ -11,12 +11,12 @@ class Event(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
     created_date = db.Column(db.DateTime)
     urgency = db.Column(db.Integer)
-    users = db.relationship('User',backref='Event',lazy='dynamic')
+    users = db.relationship('users.User',backref='my_event',lazy='dynamic')
 
     def __repr__(self):
         return self.description
 
-    def __init__(self, description, coordinates, radius, event_type, created_by, created_date, urgency):
+    def __init__(self, description, coordinates=None, radius=None, event_type=None, created_by=None, created_date=None, urgency=None):
         self.description = description
         self.coordinates = coordinates
         self.radius = radius
@@ -30,7 +30,7 @@ class EventType(db.Model):
     __tablename__ = "EventType"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    events = db.relationship('Event',backref='EventType', lazy='dynamic')
+    events = db.relationship('Event',backref='my_EventType', lazy='dynamic')
 
     def __repr__(self):
         return self.name
