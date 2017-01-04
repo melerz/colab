@@ -29,7 +29,7 @@ class Event(db.Model):
 class EventType(db.Model):
     __tablename__ = "EventType"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
+    name = db.Column(db.String(50), unique=True)
     events = db.relationship('Event',backref='EventType', lazy='dynamic')
 
     def __repr__(self):

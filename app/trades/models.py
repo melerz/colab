@@ -37,7 +37,7 @@ class TradeType(db.Model):
 class Category(db.Model):
     __tablename__ = "Category"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120))
+    name = db.Column(db.String(120), unique=True)
     users = db.relationship('CategoryRelationships', backref='category', lazy='dynamic')
     trades = db.relationship('Trade',backref='category',lazy='dynamic')
 
