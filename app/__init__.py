@@ -27,10 +27,12 @@ from app.trades.models import *
 from app.users.models import *
 from app.events.views import events
 from app.users.views import users
+from app.trades.views import trades
 
 # Register blueprint(s)
-app.register_blueprint(events, url_prefix='/events')
-app.register_blueprint(users, url_prefix='/users')
+app.register_blueprint(events, url_prefix='/api/events')
+app.register_blueprint(users, url_prefix='/api/users')
+app.register_blueprint(trades, url_prefix='/api/users')
 
 # Build the database:
 # This will create the database file using SQLAlchemy

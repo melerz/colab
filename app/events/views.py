@@ -10,21 +10,41 @@ events = Blueprint('events', __name__)
 api = Api()
 api.init_app(events)
 
+event_fields = {
+    'id': fields.Integer,
+    'username': fields.String,
+    'job': fields.String,
+    'team': fields.Integer,
+    'picture': fields.String,
+    'works_on': fields.Integer,
+    'counter': fields.String,
+    'name': fields.String,
+    'password': fields.Integer,
+    'location': fields.Integer
+}
+
+
+class Events(Resource):
+    @marshal_with(event_fields)
+    def get(self, event_id=None):
+        if event_id:
+            events = Event.query.filter(Event.id == event_id).all()
+        else:
+            events = Event.query.all()
+        return events
+
+    def post(self):
+        pass
+
+    def delete(self):
+        pass
+
+
 resource_fields = {
     'id': fields.String,
     'name': fields.String
 }
 
-
-class Events(Resource):
-    def get(self):
-        return "im in get api for events"
-
-    def post(self):
-        return "post created succefully"
-
-    def delete(self):
-        return "post created succefully"
 
 class EventsType(Resource):
     @marshal_with(resource_fields)
@@ -47,5 +67,5 @@ class EventsType(Resource):
         db.session.delete(event)
 
 
-api.add_resource(Events, '/')
+api.add_resource(Events, '/', '/<int:event_id>')
 api.add_resource(EventsType, '/type', '/type/<int:type_id>')
