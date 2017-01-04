@@ -35,7 +35,7 @@ class Users(Resource):
         return user
 
     def post(self):
-        data = request.get_jason()
+        data = request.get_json()
         user = User(data['user_name'], data['job'], data['picture'], data['works_on'], data['country'], data['name'],
                     data['password'],data['location'],data['team'])
         db.session.add(user)
@@ -59,7 +59,7 @@ class Users(Resource):
         user.password = data['password']
         user.location = data['location']
         user.picture = data['picture']
-        session.commit()
+        db.session.commit()
         return {"result:success"}, 201
 
 
