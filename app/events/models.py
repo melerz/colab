@@ -8,11 +8,10 @@ class Event(db.Model):
     coordinates = db.Column(db.Integer)
     radius = db.Column(db.Integer)
     event_type = db.Column(db.Integer, db.ForeignKey('EventType.id'))
-    created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
+    #created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
     created_date = db.Column(db.DateTime)
     urgency = db.Column(db.Integer)
-    #users = db.relationship('User',backref='my_event',lazy='dynamic')
-    users = db.relationship('User',foreign_keys=[created_by])
+    users = db.relationship('User',backref='my_event',lazy='dynamic')
 
     def __repr__(self):
         return self.description
