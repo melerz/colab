@@ -25,7 +25,7 @@ class TradeType(db.Model):
     __tablename__ = "TradeType"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    trades = db.relationship('Trade',backref='my_trade_type',lazy='dynamic')
+  #  trades = db.relationship('Trade',backref='my_trade_type',lazy='dynamic')
 
     def __repr__(self):
         return self.name
@@ -38,8 +38,8 @@ class Category(db.Model):
     __tablename__ = "Category"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True)
-    users = db.relationship('CategoryRelationships', backref='all_category', lazy='dynamic')
-    trades = db.relationship('Trade',backref='my_category',lazy='dynamic')
+   # users = db.relationship('CategoryRelationships', backref='all_category', lazy='dynamic')
+   # trades = db.relationship('Trade',backref='my_category',lazy='dynamic')
 
     def __repr__(self):
         return self.name
