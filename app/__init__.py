@@ -14,18 +14,23 @@ app.config.from_object('config')
 # by modules and controllers
 db = SQLAlchemy(app)
 
+
 # Sample HTTP error handling
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html'), 404
 
+
 # Import a module / component using its blueprint handler variable (events)
-from app.events.views import mod_auth as auth_module
+from app.events.models import *
+from app.trades.models import *
+from app.users.models import *
+from app.events.views import events
+from app.users.views import users
 
 # Register blueprint(s)
-app.register_blueprint(auth_module)
-# app.register_blueprint(xyz_module)
-# ..
+app.register_blueprint(events, url_prefix='/events')
+app.register_blueprint(users, url_prefix='/users')
 
 # Build the database:
 # This will create the database file using SQLAlchemy
