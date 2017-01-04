@@ -11,6 +11,7 @@ class Event(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
     created_date = db.Column(db.DateTime)
     urgency = db.Column(db.Integer)
+    users = db.relationship('User',backref='Event',lazy='dynamic')
 
     def __repr__(self):
         return self.description
@@ -29,6 +30,7 @@ class EventType(db.Model):
     __tablename__ = "EventType"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+    events = db.relationship('Event',backref='event_type', lazy='dynamic')
 
     def __repr__(self):
         return self.name

@@ -13,6 +13,9 @@ class User(db.Model):
     name = db.Column(db.String(50))
     password = db.Column(db.Integer)
     location = db.Column(db.Integer)  # coordinates
+    events = db.relationship('Event',backref='user',lazy='dynamic')
+    categories = db.relationship('CategoryRelationships',backref='user',lazy='dynamic')
+    trades = db.relationship('Trade',backref='user',lazy='dynamic')
 
     def __repr__(self):
         return self.userName
@@ -33,6 +36,7 @@ class Team(db.Model):
     __tablename__ = 'Team'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), unique=True)
+    users = db.relationship('User',backref='team',lazy='dynamic') #todo backref may shadow
 
     def __repr__(self):
         return self.name
