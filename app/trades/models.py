@@ -25,7 +25,7 @@ class TradeType(db.Model):
     __tablename__ = "TradeType"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    trades = db.realtionship('Trade',backref='trade_type',lazy='dynamic')
+    trades = db.relationship('Trade',backref='trade_type',lazy='dynamic')
 
     def __repr__(self):
         return self.name
