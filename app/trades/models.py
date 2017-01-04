@@ -2,11 +2,12 @@ from app import db
 
 
 class Trade(db.Model):
+    __tablename__= "Trade"
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(120))
     trade_type = db.Column(db.Integer, db.ForeignKey('TradeType.id'))
     category = db.Column(db.Integer, db.ForeignKey('Category.id'))
-    created_by = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
     is_completed = db.Column(db.Integer)  # bool
 
     def __repr__(self):
@@ -21,6 +22,7 @@ class Trade(db.Model):
 
 
 class TradeType(db.Model):
+    __tablename__ = "TradeType"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
 
@@ -32,6 +34,7 @@ class TradeType(db.Model):
 
 
 class Category(db.Model):
+    __tablename__ = "Category"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
 

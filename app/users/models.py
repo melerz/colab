@@ -2,12 +2,13 @@ from app import db
 
 
 class User(db.Model):
+    __tablename__ = "User"
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(50), unique=True)
     job = db.Column(db.String(50))
-    team = db.Column(db.Integer, db.ForgeinKey('Team.id'))
+    team = db.Column(db.Integer, db.ForeignKey('Team.id'))
     picture = db.Column(db.String(200))
-    works_on = db.Column(db.Integer, db.ForgeinKey('Event.id'))
+    works_on = db.Column(db.Integer, db.ForeignKey('Event.id'))
     country = db.Column(db.String(50))
     name = db.Column(db.String(50))
     password = db.Column(db.Integer)
@@ -29,6 +30,7 @@ class User(db.Model):
 
 
 class Team(db.Model):
+    __tablename__ = 'Team'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), unique=True)
 
@@ -40,11 +42,13 @@ class Team(db.Model):
 
 
 class CategoryRelationships(db.Model):
+    __tablename__ = "CategoryRelationship"
     id = db.Column(db.Integer, primary_key=True)
-    category_name = db.Column(db.Integer, db.ForgeinKey('Category.id'))
-    user_name = db.Column(db.Integer, db.ForgeinKey('User.id'))
+    category_name = db.Column(db.Integer, db.ForeignKey('Category.id'))
+    user_name = db.Column(db.Integer, db.ForeignKey('User.id'))
 
     def __init__(self, category_name, user_name):
         self.category_name = category_name
         self.user_name = user_name
+
 

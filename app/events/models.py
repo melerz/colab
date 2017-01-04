@@ -2,6 +2,7 @@ from app import db
 
 
 class Event(db.Model):
+    __tablename__ = "Event"
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(120))
     coordinates = db.Column(db.Integer)
@@ -12,7 +13,7 @@ class Event(db.Model):
     urgency = db.Column(db.Integer)
 
     def __repr__(self):
-        return self.type
+        return self.description
 
     def __init__(self, description, coordinates, radius, event_type, created_by, created_date, urgency):
         self.description = description
@@ -25,6 +26,7 @@ class Event(db.Model):
 
 
 class EventType(db.Model):
+    __tablename__ = "EventType"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
 
