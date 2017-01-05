@@ -16,6 +16,7 @@ class User(db.Model):
     categories = db.relationship('CategoryRelationships',backref='user',lazy='dynamic')
     trades = db.relationship('Trade',backref='user',lazy='dynamic')
 
+
     def __repr__(self):
         return self.user_name
 
