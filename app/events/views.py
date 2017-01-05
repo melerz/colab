@@ -6,21 +6,21 @@ from app.events.models import *
 import json
 from app import db
 from datetime import datetime
+
 events = Blueprint('events', __name__)
 api = Api()
 api.init_app(events)
 
 event_fields = {
     'id': fields.Integer,
-    'username': fields.String,
-    'job': fields.String,
-    'team': fields.Integer,
-    'picture': fields.String,
-    'works_on': fields.Integer,
-    'counter': fields.String,
-    'name': fields.String,
-    'password': fields.Integer,
-    'location': fields.Integer
+    'title': fields.String,
+    'description': fields.String,
+    'x_cord': fields.Integer,
+    'y_cord': fields.Integer,
+    'radius': fields.String,
+    'event_type': fields.Integer,
+    'created_date': fields.String,
+    'urgency': fields.Integer
 }
 
 
@@ -42,7 +42,6 @@ class Events(Resource):
         db.session.commit()
         return {"result": "success"}, 201
 
-
     def delete(self, event_id):
         event = Event.query.get(event_id)
         db.session.delete(event)
@@ -52,7 +51,6 @@ resource_fields = {
     'id': fields.Integer,
     'name': fields.String
 }
-
 
 user_json = {
     'id': fields.Integer,

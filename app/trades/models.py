@@ -4,6 +4,7 @@ from app import db
 class Trade(db.Model):
     __tablename__= "Trade"
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120))
     description = db.Column(db.String(120))
     trade_type = db.Column(db.Integer, db.ForeignKey('TradeType.id'))
     category = db.Column(db.Integer, db.ForeignKey('Category.id'))

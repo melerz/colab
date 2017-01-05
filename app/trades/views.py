@@ -10,6 +10,7 @@ api.init_app(trades)
 
 trade_json = {
     'id': fields.Integer,
+    'title': fields.String,
     'description': fields.String,
     'trade_type': fields.String,
     'category': fields.String,

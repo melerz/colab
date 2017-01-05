@@ -4,11 +4,11 @@ from app import db
 class Event(db.Model):
     __tablename__ = "Event"
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120))
     description = db.Column(db.String(120))
     coordinates = db.Column(db.Integer)
     radius = db.Column(db.Integer)
     event_type = db.Column(db.Integer, db.ForeignKey('EventType.id'))
-    # created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
     created_date = db.Column(db.DateTime, server_default=db.func.now())
     urgency = db.Column(db.Integer)
     users = db.relationship('User', backref='my_event', lazy='dynamic')
@@ -16,7 +16,7 @@ class Event(db.Model):
     def __repr__(self):
         return self.description
 
-    def __init__(self, description, coordinates, radius, event_type, created_by, urgency):
+    def __init__(self, description, coordinates, radius, event_type,title,created_by, urgency):
         self.description = description
         self.coordinates = coordinates
         self.radius = radius
