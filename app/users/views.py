@@ -36,11 +36,12 @@ class Users(Resource):
 
     def post(self):
         data = request.get_json()
+        print(data)
         user = User(data['user_name'], data['job'], data['picture'], data['works_on'], data['country'], data['name'],
                     data['password'],data['location'],data['team'])
         db.session.add(user)
         db.session.commit()
-        return {"result:success"}, 201
+        return {"result":"success"}, 201
 
     def delete(self, user_id):
         user = User.query.get(user_id)

@@ -8,21 +8,20 @@ class Event(db.Model):
     coordinates = db.Column(db.Integer)
     radius = db.Column(db.Integer)
     event_type = db.Column(db.Integer, db.ForeignKey('EventType.id'))
-    #created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
-    created_date = db.Column(db.DateTime)
+    # created_by = db.Column(db.Integer, db.ForeignKey('User.id'))
+    created_date = db.Column(db.DateTime, server_default=db.func.now())
     urgency = db.Column(db.Integer)
     users = db.relationship('User', backref='my_event', lazy='dynamic')
 
     def __repr__(self):
         return self.description
 
-    def __init__(self, description, coordinates, radius, event_type, created_by, created_date, urgency):
+    def __init__(self, description, coordinates, radius, event_type, created_by, urgency):
         self.description = description
         self.coordinates = coordinates
         self.radius = radius
         self.event_type = event_type
         self.created_by = created_by
-        self.created_date = created_date
         self.urgency = urgency
 
 
@@ -37,4 +36,3 @@ class EventType(db.Model):
 
     def __init__(self, name):
         self.name = name
-

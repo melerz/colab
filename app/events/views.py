@@ -5,7 +5,7 @@ from flask_restful import Resource, Api, fields, marshal_with
 from app.events.models import *
 import json
 from app import db
-
+from datetime import datetime
 events = Blueprint('events', __name__)
 api = Api()
 api.init_app(events)
@@ -35,8 +35,9 @@ class Events(Resource):
 
     def post(self):
         data = request.get_json()
+        print(data)
         new_event = Event(data['description'], data['coordinates'], data['radius'], data['event_type'],
-                          data['created_by'], data['created_date'], data['urgency'])
+                          data['created_by'], data['urgency'])
         db.session.add(new_event)
         db.session.commit()
         return {"result": "success"}, 201
