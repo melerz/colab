@@ -12,7 +12,7 @@ api.init_app(users)
 
 
 resource_fields = {
-    'id': fields.String,
+    'id': fields.Integer,
     'user_name': fields.String,
     'job': fields.String,
     'picture': fields.String,
@@ -24,6 +24,12 @@ resource_fields = {
     'team': fields.String
 
 }
+
+team_json = {
+    'id': fields.Integer,
+    'name': fields.String
+}
+
 
 class Users(Resource):
     @marshal_with(resource_fields)
@@ -64,4 +70,10 @@ class Users(Resource):
         return {"result:success"}, 201
 
 
+class TeamView(Resource):
+    @marshal_with(team_json)
+
+
+
 api.add_resource(Users, '/', '/<int:user_id>')
+api.add_resource(Team, '/', '/<int:team_id>')

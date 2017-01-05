@@ -56,7 +56,7 @@ class TradeCategoryRelationshipView(Resource):
 
 
 user_json = {
-    'id': fields.String,
+    'id': fields.Integer,
     'user_name': fields.String,
     'job': fields.String,
     'picture': fields.String,

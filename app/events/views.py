@@ -49,13 +49,13 @@ class Events(Resource):
 
 
 resource_fields = {
-    'id': fields.String,
+    'id': fields.Integer,
     'name': fields.String
 }
 
 
 user_json = {
-    'id': fields.String,
+    'id': fields.Integer,
     'user_name': fields.String,
     'job': fields.String,
     'picture': fields.String,
