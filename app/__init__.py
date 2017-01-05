@@ -1,6 +1,7 @@
 # Import flask and template operators
 from flask import Flask, render_template
 from flask_cors import CORS
+from app.chat import runChat
 
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
@@ -39,3 +40,4 @@ app.register_blueprint(trades, url_prefix='/api/trades')
 # Build the database:
 # This will create the database file using SQLAlchemy
 db.create_all()
+
